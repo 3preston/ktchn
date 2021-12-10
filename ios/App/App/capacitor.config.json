@@ -1,0 +1,6 @@
+{
+	"appId": "com.ktchnonline",
+	"appName": "ktchn",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

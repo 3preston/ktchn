@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <ion-buttons>
+          <ion-back-button slot="start" defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col class="ion-text-end">
+        <ion-img class="topImage" src="assets/logo.png" (click)="logoClicked()"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <ion-row *ngIf="editMode" class="ion-justify-content-center">
+    <ion-button size="small" color="danger" (click)="deleteCookbook()">Delete Cookbook</ion-button>
+  </ion-row>
+  <br>
+  <ion-row class="ion-justify-content-center">
+    <h1 class="padding">Cookbook: </h1>
+    <h1>{{ this.cookbookName }}</h1>
+  </ion-row>
+  <ion-row class="ion-justify-content-center">
+    <ion-img class="cookbookPic" [src]="this.cookbookPic" alt="Cookbook Pic Not Available"></ion-img>
+  </ion-row>
+  <ion-row *ngIf="editMode" class="ion-justify-content-center">
+    <ion-button size="small" color="success" (click)="editCookbookPic()">Edit Picture</ion-button>
+  </ion-row>
+  <br>
+  <ion-row class="ion-justify-content-center">
+    <h1 class="underlined">Cookbook Recipes:</h1>
+  </ion-row>
+  <ion-row *ngIf="editMode" class="ion-justify-content-center">
+    <ion-button size="small" color="danger" (click)="editCookbook()">Edit Recipes</ion-button>
+  </ion-row>
+  <ion-row class="ion-justify-content-center">
+    <app-recipe-main *ngFor="let recipe of cookbookRecipes" [recipe]="recipe"></app-recipe-main>
+  </ion-row>
+</ion-content>

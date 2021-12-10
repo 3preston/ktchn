@@ -1,0 +1,24 @@
+<ion-card button (click)="routeToRecipe(recipe.objectID)">
+  <ion-row class="ion-align-items-center ion-padding-start ion-padding-top ion-padding-bottom">
+    <ion-img [src]="recipe.mainPic"></ion-img>
+    <ion-col>
+      <ion-row class="ion-padding-start">
+        <ais-highlight class="name" attribute="name" [hit]="recipe"></ais-highlight>
+      </ion-row>
+      <ion-row class="ion-padding-start">
+        <span class="underlined red info">Ingredients: </span>
+        <div *ngFor="let ingredient of recipe.ingredients; let i = index; last as last">
+          <ais-highlight class="info" [attribute]="'ingredients.'+i" [hit]="recipe"></ais-highlight>
+          <span *ngIf="!last" class="padding info">, </span>
+        </div>
+      </ion-row>
+      <ion-row class="ion-padding-start">
+        <span class="underlined green info">Categories: </span>
+        <div *ngFor="let category of recipe.recipeType; let i = index; last as last">
+          <ais-highlight class="info" [attribute]="'recipeType.'+i" [hit]="recipe"></ais-highlight>
+          <span class="info" *ngIf="!last" class="padding">,</span>
+        </div>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+</ion-card>

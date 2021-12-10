@@ -1,0 +1,44 @@
+<ion-app>
+  <ion-menu contentId="main">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title class="ion-text-center">
+          <ion-img src="assets/logo.png" (click)="logoClicked()"></ion-img>
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item button (click)="home()">
+          <ion-icon name="search-outline" class="ion-padding"></ion-icon>
+          <ion-label>Search Recipes</ion-label>
+        </ion-item>
+        <ion-item button (click)="profile()">
+          <ion-icon name="fast-food-outline" class="ion-padding"></ion-icon>
+          <ion-label>Your Kitchen</ion-label>
+        </ion-item>
+        <!-- <ion-item button (click)="apply()">
+          <ion-icon name="restaurant-outline" class="ion-padding"></ion-icon>
+          <ion-label>Apply To Become Chef</ion-label>
+        </ion-item> -->
+        <ion-item button (click)="contact()">
+          <ion-icon name="mail-outline" class="ion-padding"></ion-icon>
+          <ion-label>Contact Us</ion-label>
+        </ion-item>
+        <ion-item button (click)="legal()">
+          <ion-icon name="document-outline" class="ion-padding"></ion-icon>
+          <ion-label>Legal</ion-label>
+        </ion-item>
+        <ion-item *ngIf="!loggedIn" button (click)="signUp()">
+          <ion-icon name="add-circle-outline" class="ion-padding"></ion-icon>
+          <ion-label>Sign In</ion-label>
+        </ion-item>
+        <ion-item *ngIf="loggedIn" button (click)="logout()">
+          <ion-icon name="exit-outline" class="ion-padding"></ion-icon>
+          <ion-label>Logout</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>

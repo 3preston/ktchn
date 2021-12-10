@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row class="ion-align-items-center">
+      <ion-col class="ion-text-start">
+        <ion-icon size="large" color="danger" name="close-circle-outline" (click)="exitRecipe()"></ion-icon>
+      </ion-col>
+      <ion-col class="ion-text-end">
+        <ion-icon name="checkmark-circle-outline" size="large" color="success" (click)="saveRecipe()"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form *ngIf="form" [formGroup]="form">
+    <h3 class="ion-text-center underline">Recipe Picture:</h3>
+    <ion-row *ngIf="mode !== 'edit'" class="ion-justify-content-center">
+      <app-image-picker (imagePick)="onImagePicked($event)"
+      [showPreview]="mainPic"></app-image-picker>
+    </ion-row>
+    <ion-item>
+      <h3 class="ion-text-center underline">Name:</h3>
+      <ion-label color="dark" position="floating">(Max 60 Chararacters)</ion-label>
+      <ion-textarea
+        maxlength="60"
+        wrap="soft"
+        autocapitalize="sentences"
+        autofocus="true"
+        enterkeyhint="enter"
+        inputmode="text"
+        formControlName="name"
+        spellcheck="true"
+        ></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <h3 class="ion-text-center underline">Description:</h3>
+      <ion-label color="dark" position="floating">(Max 200 Characters)</ion-label>
+      <ion-textarea
+        maxlength="200"
+        wrap="soft"
+        formControlName="description"
+        autocapitalize="sentences"
+        enterkeyhint="enter"
+        inputmode="text"
+        spellcheck="true"
+      ></ion-textarea>
+    </ion-item>
+    <ion-row class="ion-justify-content-center ion-no-padding ion-no-margin">
+      <h3 class="underline">Recipe Category:</h3>
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-no-padding ion-no-margin">
+      <h6 class="ion-no-padding ion-no-margin">(required, select all that apply)</h6>
+    </ion-row>
+    <ion-item class="ion-justify-content-center">
+      <ion-select formControlName="recipeType" (ionChange)="typeChosen($event)" multiple="true" placeholder="Breakfast, Lunch, Vegan, Italian, etc.">
+        <ion-select-option value="Breakfast">Breakfast</ion-select-option>
+        <ion-select-option value="Lunch">Lunch</ion-select-option>
+        <ion-select-option value="Dinner">Dinner</ion-select-option>
+        <ion-select-option value="Appetizer">Appetizer</ion-select-option>
+        <ion-select-option value="Dessert">Dessert</ion-select-option>
+        <ion-select-option value="Snack">Snack</ion-select-option>
+        <ion-select-option value="Happy Hour">Happy Hour</ion-select-option>
+        <ion-select-option value="Cocktail">Cocktail</ion-select-option>
+        <ion-select-option value="Alcohol">Alcohol</ion-select-option>
+        <ion-select-option value="Vegetarian">Vegetarian</ion-select-option>
+        <ion-select-option value="Vegan">Vegan</ion-select-option>
+        <ion-select-option value="Keto">Keto</ion-select-option>
+        <ion-select-option value="Low Carb">Low Carb</ion-select-option>
+        <ion-select-option value="Meat">Meat</ion-select-option>
+        <ion-select-option value="Soup">Soup</ion-select-option>
+        <ion-select-option value="Broth">Broth</ion-select-option>
+        <ion-select-option value="Spicy">Spicy</ion-select-option>
+        <ion-select-option value="Mild">Mild</ion-select-option>
+        <ion-select-option value="Italian">Italian</ion-select-option>
+        <ion-select-option value="Chinese">Chinese</ion-select-option>
+        <ion-select-option value="Thai">Thai</ion-select-option>
+        <ion-select-option value="Indian">Indian</ion-select-option>
+        <ion-select-option value="Mexican">Mexican</ion-select-option>
+        <ion-select-option value="French">French</ion-select-option>
+        <ion-select-option value="Jamaican">Jamaican</ion-select-option>
+        <ion-select-option value="Ethiopian">Ethiopian</ion-select-option>
+        <ion-select-option value="Christmas">Christmas</ion-select-option>
+        <ion-select-option value="Thanksgiving">Thanksgiving</ion-select-option>
+        <ion-select-option value="Gameday">Gameday</ion-select-option>
+        <ion-select-option value="Good for Kids">Good for Kids</ion-select-option>
+        <ion-select-option value="Quick">Quick</ion-select-option>
+        <ion-select-option value="Crockpot">Crockpot</ion-select-option>
+        <ion-select-option value="Dutch Oven">Dutch Oven</ion-select-option>
+        <ion-select-option value="Cast Iron">Cast Iron</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-row class="ion-justify-content-center">
+      <h3 class="underline">Prep & Cook Time:</h3>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <h6 color="dark" position="stacked">(total minutes)</h6>
+    </ion-row>
+    <ion-row class="ion-text-center ion-justify-content-center">
+      <ion-col size="4">
+        <ion-input
+          type="number"
+          maxlength="5"
+          formControlName="minutes"
+          placeholder="e.g. 75"
+          inputmode="numeric"
+        ></ion-input>
+      </ion-col>
+      <br>
+    </ion-row>
+  </form>
+</ion-content>

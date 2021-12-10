@@ -1,0 +1,7 @@
+{
+  "name": "ktchn",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ktchn-7be34": {
+      "hosting": {
+        "app": [
+          "ktchn-7be34"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ktchn-7be34"
+  }
+}

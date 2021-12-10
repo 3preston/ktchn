@@ -1,0 +1,24 @@
+.topImage {
+  float:right;
+  height: 50px;
+}
+
+.underlined {
+  text-decoration: underline !important;
+}
+
+.cookbookPic {
+  overflow: hidden;
+  object-fit: cover;
+  height: 250px;
+  width: 350px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 23px 23px 23px 23px !important;
+  // height: 350px;
+  // width: 100%;
+}
+
+.padding {
+  padding-right: 3px;
+}

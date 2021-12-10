@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row class="ion-align-items-center">
+      <ion-col class="ion-justify-content-start">
+        <ion-icon *ngIf="!loggedIn" size="large" class="ion-padding" name="person-circle-outline" (click)="openMenu()"></ion-icon>
+        <ion-avatar *ngIf="loggedIn" (click)="openMenu()">
+          <ion-img [src]="this.userInfo.chefPic"></ion-img>
+        </ion-avatar>
+      </ion-col>
+      <ion-col class="ion-text-end ion-padding">
+        <ion-img class="topImage" src="assets/logo.png" (click)="logoClicked()"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <ion-row class="ion-justify-content-center">
+    <ion-img class="ion-padding ion-margin lowerImage" src="assets/logo.png"></ion-img>
+  </ion-row>
+  <form #f="ngForm" (ngSubmit)="emailSubmitted(f)">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col class="ion-text-center" size-sm="5">
+          <h1 *ngIf="!applyMode" class="underlined">Contact Us:</h1>
+          <h1 *ngIf="applyMode" class="underlined">Apply to Become a Chef:</h1>
+          <br>
+          <ion-item>
+            <ion-label>Email:</ion-label>
+            <ion-input type="email" name="email" ngModel email required #emailCtrl="ngModel"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Subject:</ion-label>
+            <ion-input type="text" name="subject" required ngModel #subjectCtrl="ngModel"></ion-input>
+          </ion-item>
+          <br>
+          <ion-item>
+            <ion-label>Message:</ion-label>
+            <ion-textarea type="text" name="message" required ngModel #messageCtrl="ngModel"></ion-textarea>
+          </ion-item>
+          <br>
+          <ion-button type="submit" color="danger">Submit</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

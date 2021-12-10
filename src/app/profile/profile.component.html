@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row class="ion-align-items-center">
+      <ion-col *ngIf="editMode" class="ion-justify-content-start">
+        <ion-icon *ngIf="!loggedIn" size="large" class="ion-padding" name="person-circle-outline" (click)="openMenu()"></ion-icon>
+        <ion-avatar *ngIf="loggedIn" (click)="openMenu()">
+          <ion-img [src]="profileInfo?.chefPic"></ion-img>
+        </ion-avatar>
+      </ion-col>
+      <ion-col *ngIf="!editMode" class="ion-justify-content-start">
+        <ion-buttons>
+          <ion-back-button slot="start" defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col class="ion-text-end ion-padding">
+        <ion-img class="logo" src="assets/logo.png" (click)="logoClicked()"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-button *ngIf="editMode" size="small" color="danger" (click)="updatePic()">Update Picture</ion-button>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <br>
+        <ion-avatar class="imageCenter">
+          <img [src]="profileInfo?.chefPic">
+        </ion-avatar>
+        <br>
+        <div class="ion-align-items-center">
+          <span class="chef">{{ profileInfo?.chefName }}</span>
+          <ion-icon color="danger" *ngIf="editMode" size="medium" class="paddingLeft" name="create-outline" (click)="updateInfo()"></ion-icon>
+        </div>
+        <br>
+        <div class="ion-align-items-center">
+          <span class="padding">Bio:</span>
+          <span>{{ profileInfo?.chefBio }}</span>
+          <ion-icon color="danger" *ngIf="editMode" size="medium" class="paddingLeft" name="create-outline" (click)="updateInfo()"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-segment *ngIf="cookMode" color="danger" value="favorites" mode="md" (ionChange)="segmentChange($event)">
+          <ion-segment-button value="favorites">
+            <ion-label>Favorites</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="cookbooks">
+            <ion-label>Cookbooks</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+        <ion-segment *ngIf="!cookMode" value="recipes" color="danger" mode="md" (ionChange)="segmentChange($event)">
+          <ion-segment-button value="recipes">
+            <ion-label>Recipes</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="favorites">
+            <ion-label>Favorites</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="cookbooks">
+            <ion-label>Cookbooks</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-row *ngIf="segmentChosen === 'recipes' && this.editMode" class="ion-justify-content-center">
+    <ion-button *ngIf="editMode" color="success" (click)="createNewRecipe()">Create New Recipe</ion-button>
+  </ion-row>
+  <ion-row *ngIf="segmentChosen === 'recipes'" class="ion-justify-content-center">
+    <app-recipe-main *ngFor="let recipe of userRecipes" [recipe]="recipe"></app-recipe-main>
+  </ion-row>
+  <ion-row *ngIf="segmentChosen === 'favorites'" class="ion-justify-content-center">
+    <app-recipe-main *ngFor="let recipe of userFavs" [recipe]="recipe"></app-recipe-main>
+    <h3 *ngIf="userFavs?.length < 1">No Favorites</h3>
+  </ion-row>
+  <ion-row *ngIf="segmentChosen === 'cookbooks'" class="ion-text-center">
+    <ion-col size-sm="6" offset-sm="3">
+      <ion-button *ngIf="editMode" color="success" (click)="createNewCookbook()">Create New Cookbook</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="segmentChosen === 'cookbooks'">
+    <ion-col size-sm="6" offset-sm="3">
+        <ion-item *ngFor="let cookbook of userCookbooks" button (click)="enterCookBook(cookbook)">
+          <ion-col size="2">
+            <ion-thumbnail>
+              <ion-img [src]="cookbook.cookbookPic"></ion-img>
+            </ion-thumbnail>
+          </ion-col>
+          <ion-col>
+            <ion-label>
+              <ion-row>
+                <h1>{{ cookbook.cookbookName }}</h1>
+              </ion-row>
+              <ion-row>
+                <h6 class="padding danger">({{ cookbook.cookbookLength }}</h6>
+                <h6 class="danger" *ngIf="cookbook.cookbookLength > 1">Recipes)</h6>
+                <h6 class="danger" *ngIf="cookbook.cookbookLength <= 1">Recipe)</h6>
+              </ion-row>
+            </ion-label>
+          </ion-col>
+        </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-content>

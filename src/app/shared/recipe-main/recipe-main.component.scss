@@ -1,0 +1,33 @@
+ion-card {
+  max-width: 350px !important;
+  border-radius: 23px 23px 23px 23px;
+  // max-width: 500px;
+}
+
+ion-img {
+  overflow: hidden;
+  object-fit: cover;
+  // max-height: 250px;
+  // max-width: 350px;
+  height: 250px;
+  width: 350px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 23px 23px 23px 23px !important;
+  // height: 350px;
+  // width: 100%;
+}
+
+.success {
+  color: var(--ion-color-danger);
+}
+
+ais-highlight {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ion-color-dark);
+}
+
+h3 {
+  color: var(--ion-color-dark);
+}

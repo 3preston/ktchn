@@ -1,0 +1,17 @@
+.underline {
+  text-decoration: underline;
+}
+
+ion-input {
+  --background: var(--ion-color-light-tint);
+}
+
+.noPaddingTop {
+  padding-top: 0px;
+  margin-top: 0px;
+}
+
+.noPaddingBottom {
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}

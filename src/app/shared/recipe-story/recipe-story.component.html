@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row class="ion-align-items-center">
+      <ion-col class="ion-text-end">
+        <ion-icon name="checkmark-circle-outline" size="large" color="success" (click)="saveRecipe()"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <br>
+  <ion-row class="ion-justify-content-center">
+    <h1>Recipe Story:</h1>
+  </ion-row>
+  <ion-row class="ion-justify-content-center">
+    <h6>(Optional - no character limit)</h6>
+  </ion-row>
+  <br>
+  <form *ngIf="form" [formGroup]="form">
+    <ion-row class="ion-justify-content-center">
+      <ion-textarea
+        class="ion-padding ion-margin shaded"
+        rows="4"
+        formControlName="story"
+        autocapitalize="sentences"
+        autofocus="true"
+        enterkeyhint="enter"
+        inputmode="text"
+        placeholder="My mother's famous lasagna she brought from Italy..."
+        spellcheck="true"
+      ></ion-textarea>
+    </ion-row>
+    <br>
+    <ion-row *ngIf="!editMode" class="ion-justify-content-center">
+      <h3>Story Picture:</h3>
+    </ion-row>
+    <ion-row *ngIf="!editMode" class="ion-justify-content-center">
+      <h6>(Optional)</h6>
+    </ion-row>
+    <ion-row *ngIf="!editMode" class="ion-justify-content-center">
+      <app-image-picker (imagePick)="onImagePicked($event)"
+          [showPreview]="storyPic"></app-image-picker>
+    </ion-row>
+    <br>
+    <br>
+  </form>
+</ion-content>

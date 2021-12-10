@@ -1,0 +1,72 @@
+.logo {
+  float:right;
+  height: 50px;
+}
+
+.description {
+  font-size: small;
+}
+
+.padding {
+  padding-right: 3px;
+}
+
+.searchResult {
+  max-width: 500px;
+  min-width: 330px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--ion-color--dark);
+  .underlinedRed {
+    text-decoration: underline;
+    padding-right: 5px;
+    color: var(--ion-color-danger);
+  }
+  .underlinedYellow {
+    text-decoration: underline;
+    padding-right: 5px;
+    color: var(--ion-color-success);
+  }
+}
+
+.underlined {
+  text-decoration: underline;
+  padding-right: 5px;
+}
+
+.green {
+  color: var(--ion-color-success);
+}
+.red {
+  color: var(--ion-color-danger);
+}
+
+ion-select {
+  --placeholder-color: var(--ion-color-dark);
+  color: red;
+}
+
+.highlight {
+  font-size: large;
+  font-weight: bold;
+}
+
+.bio {
+  font-size: medium;
+}
+
+.name {
+  font-size: large;
+  font-weight: bold;
+}
+
+ion-card {
+  border-radius: 23px 23px 23px 23px;
+}
+
+h1 {
+  text-decoration: underline;
+  color: var(--ion-color-danger);
+}

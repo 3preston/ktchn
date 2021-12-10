@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row class="ion-align-items-center">
+      <ion-col class="ion-text-end">
+        <ion-icon name="checkmark-circle-outline" size="large" color="success" (click)="saveInfo()"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <form #f="ngForm">
+    <ion-row class="ion-justify-content-center ion-text-center">
+      <h6 class="underline">Amount & Item Description</h6>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input
+            placeholder="3 Cups of Flour"
+            type="text"
+            id="ingredient"
+            name="ingredient"
+            autocapitalize="words"
+            autofocus="true"
+            enterkeyhint="done"
+            inputmode="text"
+            spellcheck="true"
+            ngModel
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <br>
+    <ion-row *ngIf="!editMode" class="ion-justify-content-center">
+      <ion-button color="success" (click)="addIngredient(f)">Add Ingredient</ion-button>
+    </ion-row>
+    <ion-row *ngIf="editMode" class="ion-justify-content-center">
+      <ion-col class="ion-text-center">
+        <ion-button color="success" (click)="updateIngredient(f)">Update</ion-button>
+      </ion-col>
+      <ion-col class="ion-text-center">
+        <ion-button color="danger" (click)="deleteIngredient(f)">Delete</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+  <br>
+  <ion-row class="ion-justify-content-center">
+    <h3 class="underline">Ingredients List:</h3>
+  </ion-row>
+  <ion-row *ngIf="ingredients.length > 1 && !editMode" class="ion-justify-content-end ion-padding-end">
+    <h6>(Reorder)</h6>
+  </ion-row>
+  <br>
+  <ion-reorder-group *ngIf="!editMode" (ionItemReorder)="doReorder($event)" disabled="false">
+    <ion-item
+    *ngFor="let ingredient of ingredients;
+    let i = index"
+    (click)="editIngredient(f, i, ingredient)">
+      <ion-col class="ion-text-start ion-padding-start ion-justify-content-between" size="2">
+        <h5>({{i + 1}})</h5>
+      </ion-col>
+      <ion-col class="ion-text-start ion-justify-content-between">
+        <h4>{{ ingredient }} </h4>
+      </ion-col>
+      <ion-reorder *ngIf="ingredients.length > 1 && !editMode" slot="end"></ion-reorder>
+    </ion-item>
+  </ion-reorder-group>
+  <!-- below code used to force re-render of list due to ordering bug/ionic issue/limitation -->
+  <div *ngIf="editMode">
+    <ion-item
+    *ngFor="let ingredient of ingredients;
+    let i = index"
+    [ngClass]="{highlight: i === editingIndex}"
+    (click)="editIngredient(f, i, ingredient)">
+      <ion-col class="ion-text-start ion-padding-start ion-justify-content-between" size="2">
+        <h5>({{i + 1}})</h5>
+      </ion-col>
+      <ion-col class="ion-text-start ion-justify-content-between">
+        <h4>{{ ingredient }} </h4>
+      </ion-col>
+      <ion-reorder *ngIf="ingredients.length > 1 && !editMode" slot="end"></ion-reorder>
+    </ion-item>
+  </div>
+</ion-content>

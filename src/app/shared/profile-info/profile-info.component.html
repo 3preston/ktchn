@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row class="ion-align-items-center">
+      <ion-col class="ion-text-start">
+        <ion-icon size="large" color="danger" name="close-circle-outline" (click)="exitModal()"></ion-icon>
+      </ion-col>
+      <ion-col class="ion-text-end">
+        <ion-icon name="checkmark-circle-outline" size="large" color="success" (click)="saveInfo()"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form *ngIf="form" [formGroup]="form">
+    <ion-grid>
+      <h1 class="ion-text-center underline">Chef Name:</h1>
+      <br>
+      <ion-item>
+        <ion-input
+          maxlength="40"
+          required
+          formControlName="name"
+          placeholder="Max 40 Characters"
+          type="text"
+          autocapitalize="words"
+          autofocus="true"
+          enterkeyhint="done"
+          inputmode="text"
+          spellcheck="true"
+        ></ion-input>
+      </ion-item>
+      <br>
+      <br>
+      <h1 class="ion-text-center underline">Chef Bio:</h1>
+      <br>
+      <ion-item>
+        <ion-input
+          maxlength="120"
+          required
+          formControlName="bio"
+          placeholder="Max 120 Characters"
+          type="text"
+          autocapitalize="words"
+          enterkeyhint="done"
+          inputmode="text"
+          spellcheck="true"
+        ></ion-input>
+      </ion-item>
+    </ion-grid>
+  </form>
+
+</ion-content>

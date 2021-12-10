@@ -1,0 +1,64 @@
+ion-img {
+  overflow: hidden;
+  object-fit: cover;
+  height: 250px;
+  width: 350px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 23px 23px 23px 23px !important;
+  // height: 350px;
+  // width: 100%;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.spaced {
+  padding: 3px;
+  font-weight: bold;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.logo {
+  height: 50px;;
+}
+
+.paddingLeft {
+  padding-left: 5px;
+}
+
+.paddingRight {
+  padding-right: 5px;
+}
+
+.description {
+  font-weight: bold;
+}
+
+.red {
+  color: var(--ion-color-danger);
+}
+
+.formatting {
+  white-space: pre-wrap;
+}
+
+.reccomended {
+  color: var(--ion-color-success);
+}
+
+.notreccomended {
+  color: var(--ion-color-danger);
+}
+
+.noTopPadding {
+  padding-top: 0px;
+}
+
+.reccomendHelp {
+  font-size: smaller;
+}

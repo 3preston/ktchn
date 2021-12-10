@@ -1,0 +1,43 @@
+.info {
+  font-size: medium;
+}
+
+.padding {
+  padding-right: 4px;
+}
+
+.name {
+  font-size: large;
+  font-weight: bold;
+}
+
+.underlined {
+  text-decoration: underline;
+  padding-right: 5px;
+}
+
+.green {
+  color: var(--ion-color-success);
+}
+.red {
+  color: var(--ion-color-danger);
+}
+
+ion-card {
+  border-radius: 23px 23px 23px 23px;
+  margin: 3px;
+}
+
+ion-img {
+  height: 75px;
+  width: 105px;
+  overflow: hidden;
+  object-fit: cover;
+  align-items: flex-start;
+  padding-right: 0px !important;
+  margin-right: 0px;
+  // display: block;
+  // margin: auto;
+  border-radius: 23px 23px 23px 23px;
+}
+

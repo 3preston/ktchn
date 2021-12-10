@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row class="ion-align-items-center">
+      <ion-col class="ion-text-start">
+        <ion-icon name="checkmark-circle-outline" size="large" color="danger" (click)="exitCookbook()"></ion-icon>
+      </ion-col>
+      <ion-col class="ion-text-end">
+        <ion-icon name="checkmark-circle-outline" size="large" color="success" (click)="cookbookFinished(f)"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="cookbookFinished(f)">
+    <ion-row *ngIf="!editMode" class="ion-justify-content-center">
+      <h1>Cookbook Name:</h1>
+    </ion-row>
+    <ion-row *ngIf="!editMode" class="ion-justify-content-center">
+      <ion-item>
+        <ion-input
+          ngModel
+          name="cookbookName"
+          placeholder="Italian Cookbook"
+          autocapitalize="words"
+          enterkeyhint="done"
+          inputmode="text"
+          type="text"
+          maxlength="100"
+          spellcheck="true"
+        ></ion-input>
+      </ion-item>
+    </ion-row>
+    <br>
+    <ion-row *ngIf="!editMode" class="ion-justify-content-center">
+      <app-image-picker
+        (imagePick)="onImagePicked($event)"
+        [showPreview]="cookbookPic"
+      ></app-image-picker>
+    </ion-row>
+  </form>
+  <br>
+  <ion-row class="ion-justify-content-center">
+    <h5>(Select Recipes to Include)</h5>
+  </ion-row>
+  <br>
+  <ion-row *ngFor="let recipe of recipes" class="ion-align-items-center">
+    <ion-col size="2" class="ion-text-start ion-padding ion-margin" (click)=recipeClicked(recipe)>
+      <ion-thumbnail>
+        <ion-img [src]="recipe.mainPic"></ion-img>
+      </ion-thumbnail>
+    </ion-col>
+    <ion-col class="ion-float-left" (click)=recipeClicked(recipe)>
+      <h4>{{ recipe?.name }}</h4>
+      {{ (recipe.description?.length > 40)? (recipe.description|slice:0:40)+'...' : recipe?.description }}
+    </ion-col>
+    <ion-col size="2">
+      <ion-checkbox color="success" mode="ios" [(ngModel)]="recipe.isChecked"></ion-checkbox>
+    </ion-col>
+  </ion-row>
+</ion-content>

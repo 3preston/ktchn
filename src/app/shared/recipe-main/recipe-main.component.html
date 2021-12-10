@@ -1,0 +1,29 @@
+<ion-card button (click)="openRecipe()">
+  <ion-row class="ion-justify-content-center ion-text-center">
+    <ion-card-header>
+      <h3 *ngIf="mode !== 'search'"> {{ recipe?.name }} </h3>
+      <ais-highlight *ngIf="mode === 'search'" class="highlight" attribute="name" [hit]="recipe"></ais-highlight>
+      <div *ngIf="+recipe?.minutes >= 1" class="success">
+        {{ recipe?.minutes }} min.
+      </div>
+      <br *ngIf="!recipe?.minutes">
+    </ion-card-header>
+  </ion-row>
+  <ion-row class="ion-justify-content-center">
+    <ion-img [src]='recipe?.mainPic'></ion-img>
+  </ion-row>
+  <ion-card-content>
+    <ion-row class="ion-text-left">
+      <p *ngIf="recipe?.description">
+        {{ (recipe?.description.length > 40)? (recipe?.description|slice:0:40)+'...' : recipe?.description }}
+      </p>
+      <br *ngIf="!recipe?.description">
+    </ion-row>
+    <ion-row class="ion-justify-content-end ion-text-right">
+      <ion-button fill="clear" color="danger" (click)="openRecipe()">
+        See Details
+      </ion-button>
+    </ion-row>
+  </ion-card-content>
+</ion-card>
+

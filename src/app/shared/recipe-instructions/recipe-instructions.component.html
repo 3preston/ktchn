@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row class="ion-align-items-center">
+      <ion-col class="ion-text-end">
+        <ion-icon name="checkmark-circle-outline" size="large" color="success" (click)="saveInfo()"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <form #f="ngForm" (ngSubmit)="addInstruction(f)">
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
+        <ion-item>
+          <ion-input
+            type="text"
+            id="instruction"
+            name="instruction"
+            ngModel
+            maxlength="200"
+            placeholder="Pre-Heat Oven to 425 (max 200 chars)"
+            autocapitalize="sentences"
+            autofocus="true"
+            enterkeyhint="done"
+            inputmode="text"
+            spellcheck="true"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </form>
+  <ion-row *ngIf="!editMode" class="ion-justify-content-center">
+    <ion-button color="success" (click)="addInstruction(f)">Add New Instruction</ion-button>
+  </ion-row>
+  <ion-row *ngIf="editMode" class="ion-justify-content-center">
+    <ion-col class="ion-text-center">
+      <ion-button color="success" (click)="updateInstruction(f)">Update</ion-button>
+    </ion-col>
+    <ion-col class="ion-text-center">
+      <ion-button color="danger" (click)="deleteInstruction(f)">Delete</ion-button>
+    </ion-col>
+  </ion-row>
+  <br>
+  <ion-row class="ion-justify-content-center">
+    <h2 class="underline">Recipe Instructions:</h2>
+  </ion-row>
+  <ion-row *ngIf="instructions.length > 1 && !editMode" class="ion-justify-content-end ion-padding-end">
+    <h6>(Reorder)</h6>
+  </ion-row>
+  <br>
+  <ion-reorder-group *ngIf="!editMode" (ionItemReorder)="doReorder($event)" disabled="false">
+    <ion-item
+    *ngFor="let instruction of instructions;
+    let i = index"
+    (click)="editInstruction(f, i, instruction)"
+    [ngClass]="{highlight: i === editingIndex}">
+      <ion-col size="2" class="ion-text-start ion-padding-start">
+        <h5>({{i + 1}})</h5>
+      </ion-col>
+      <ion-col class="ion-text-start">
+        <h3>{{ instruction }}</h3>
+      </ion-col>
+      <ion-reorder *ngIf="instructions.length > 1 && !editMode" slot="end"></ion-reorder>
+    </ion-item>
+  </ion-reorder-group>
+  <!-- below code used to force re-render of list due to ordering bug/ionic issue/limitation -->
+  <div *ngIf="editMode">
+    <ion-item
+    *ngFor="let instruction of instructions;
+    let i = index"
+    [ngClass]="{highlight: i === editingIndex}"
+    (click)="editInstruction(f, i, instruction)">
+      <ion-col class="ion-text-start ion-padding-start ion-justify-content-between" size="2">
+        <h5>({{i + 1}})</h5>
+      </ion-col>
+      <ion-col class="ion-text-start ion-justify-content-between">
+        <h4>{{ instruction }} </h4>
+      </ion-col>
+      <ion-reorder *ngIf="instructions.length > 1 && !editMode" slot="end"></ion-reorder>
+    </ion-item>
+  </div>
+</ion-content>

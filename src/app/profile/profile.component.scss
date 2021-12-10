@@ -1,0 +1,33 @@
+.imageCenter{
+  margin:0 auto;
+  height: 100px;
+  width: 100px;
+}
+
+.logo {
+  float:right;
+  height: 50px;
+}
+
+.padding {
+  padding-right: 3px;
+}
+
+.danger {
+  color: var(--ion-color-danger);
+}
+
+.chef {
+  font-size: xx-large;
+  font-weight: bold;
+  // padding-bottom: 10px;
+}
+
+.underlined {
+  text-decoration: underline;
+  padding-right: 5px;
+}
+
+.paddingLeft {
+  padding-left: 5px;
+}

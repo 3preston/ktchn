@@ -1,0 +1,169 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row class="ion-align-items-center">
+      <ion-col class="ion-justify-content-start">
+        <ion-icon *ngIf="!loggedIn" size="large" class="ion-padding" name="person-circle-outline" (click)="openMenu()"></ion-icon>
+        <ion-avatar *ngIf="loggedIn" (click)="openMenu()">
+          <ion-img [src]="userPic"></ion-img>
+        </ion-avatar>
+      </ion-col>
+      <ion-col class="ion-justify-content-right">
+        <ion-img class="logo" src="assets/logo.png" (click)="logoClicked()"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <br>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size-sm="8">
+      <ion-searchbar
+        [(ngModel)]="searchTerms"
+        placeholder="Search Recipes, Ingredients & Chefs"
+        inputmode="search"
+        (ionChange)="filter($event)"
+        debounce="360"
+        (ionCancel)="closeKeyboard()"
+        (ionFocus)="openKeyboard()"
+        showClearButton="never"
+        showCancelButton="focus"
+        mode="ios"
+      ></ion-searchbar>
+    </ion-col>
+  </ion-row>
+  <br>
+  <br *ngIf="searchUsed">
+  <br *ngIf="searchUsed">
+  <div *ngIf="searchUsed">
+    <!-- template for chefs -->
+    <ion-row *ngIf="searchUsed" class="ion-justify-content-center">
+      <ion-col *ngIf="searchUsed" size-sm="6">
+        <ion-row *ngIf="userHits.length > 0" class="ion-justify-content-center">
+          <h1>Chefs:</h1>
+        </ion-row>
+        <ion-card *ngFor="let userHit of userHits" button>
+          <a [routerLink]="['/', 'profile', userHit.objectID]">
+            <ion-row class="searchResult ion-align-items-center">
+              <ion-col size="2" class="ion-justify-content-center">
+                <ion-avatar>
+                  <img [src]="userHit.chefPic">
+                </ion-avatar>
+              </ion-col>
+              <ion-col>
+                <ion-row class="ion-padding-start ion-align-items-center">
+                  <ais-highlight class="highlight" attribute="chefName" [hit]="userHit"></ais-highlight>
+                </ion-row>
+                <div class="ion-padding-start ion-align-items-center">
+                  <span class="padding underlined red">Bio:</span>
+                  <ais-highlight class="bio" attribute="chefBio" [hit]="userHit"></ais-highlight>
+                </div>
+              </ion-col>
+            </ion-row>
+          </a>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- template for reicpes -->
+    <ion-row *ngIf="hits.length > 0" class="ion-justify-content-center">
+      <h1>Recipes:</h1>
+    </ion-row>
+    <ion-row *ngFor="let hit of hits" class="ion-justify-content-center">
+      <ion-col size-sm="6">
+        <app-search-recipes [recipe]="hit"></app-search-recipes>
+      </ion-col>
+    </ion-row>
+  </div>
+  <ion-row *ngIf="!searchUsed">
+    <ion-col size="12" size-sm="10" offset-sm="1">
+      <ion-row class="ion-justify-content-center">
+        <ion-col>
+          <ion-item>
+            <ion-select [(ngModel)]="chosenCategory" (ionChange)="updateFilter()" interface="popover" placeholder="Category">
+              <ion-select-option value="Breakfast">Breakfast</ion-select-option>
+              <ion-select-option value="Lunch">Lunch</ion-select-option>
+              <ion-select-option value="Dinner">Dinner</ion-select-option>
+              <ion-select-option value="Appetizer">Appetizer</ion-select-option>
+              <ion-select-option value="Dessert">Dessert</ion-select-option>
+              <ion-select-option value="Side Dish">Side Dish</ion-select-option>
+              <ion-select-option value="Snack">Snack</ion-select-option>
+              <ion-select-option value="Happy Hour">Happy Hour</ion-select-option>
+              <ion-select-option value="Cocktail">Cocktail</ion-select-option>
+              <ion-select-option value="Alcohol">Alcohol</ion-select-option>
+              <ion-select-option value="Vegetarian">Vegetarian</ion-select-option>
+              <ion-select-option value="Vegan">Vegan</ion-select-option>
+              <ion-select-option value="Keto">Keto</ion-select-option>
+              <ion-select-option value="Low Carb">Low Carb</ion-select-option>
+              <ion-select-option value="Meat">Meat</ion-select-option>
+              <ion-select-option value="Soup">Soup</ion-select-option>
+              <ion-select-option value="Broth">Broth</ion-select-option>
+              <ion-select-option value="Spicy">Spicy</ion-select-option>
+              <ion-select-option value="Mild">Mild</ion-select-option>
+              <ion-select-option value="Italian">Italian</ion-select-option>
+              <ion-select-option value="Chinese">Chinese</ion-select-option>
+              <ion-select-option value="Thai">Thai</ion-select-option>
+              <ion-select-option value="Indian">Indian</ion-select-option>
+              <ion-select-option value="Mexican">Mexican</ion-select-option>
+              <ion-select-option value="French">French</ion-select-option>
+              <ion-select-option value="Jamaican">Jamaican</ion-select-option>
+              <ion-select-option value="Ethiopian">Ethiopian</ion-select-option>
+              <ion-select-option value="Christmas">Christmas</ion-select-option>
+              <ion-select-option value="Thanksgiving">Thanksgiving</ion-select-option>
+              <ion-select-option value="Gameday">Gameday</ion-select-option>
+              <ion-select-option value="Good for Kids">Good for Kids</ion-select-option>
+              <ion-select-option value="Quick">Quick</ion-select-option>
+              <ion-select-option value="Crockpot">Crockpot</ion-select-option>
+              <ion-select-option value="Dutch Oven">Dutch Oven</ion-select-option>
+              <ion-select-option value="Cast Iron">Cast Iron</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-select [(ngModel)]="chosenTime" (ionChange)="updateFilter()" interface="popover" placeholder="Prep Time">
+              <ion-select-option value="0-10">0-10 Min.</ion-select-option>
+              <ion-select-option value="10-20">10-20 Min.</ion-select-option>
+              <ion-select-option value="20-30">20-30 Min.</ion-select-option>
+              <ion-select-option value="30-45">30-45 Min.</ion-select-option>
+              <ion-select-option value="45-60">45-60 Min.</ion-select-option>
+              <ion-select-option value="60-90">60-90 Min.</ion-select-option>
+              <ion-select-option value="90-120">90-120 Min.</ion-select-option>
+              <ion-select-option value="120-180">120-180 Min.</ion-select-option>
+              <ion-select-option value="180-240">180-240 Min.</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col class="ion-text-center">
+          <ion-button color="danger" (click)="clearFilter()">Reset Filters</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+  <br>
+  <ion-row class="ion-justify-content-center" *ngIf="!isLoading && !searchUsed">
+    <app-recipe-main *ngFor="let recipe of recipes" [recipe]="recipe"></app-recipe-main>
+  </ion-row>
+  <ion-row class="ion-justify-content-center" *ngIf="isLoading">
+    <ion-spinner color="danger"></ion-spinner>
+  </ion-row>
+  <ion-row class="ion-justify-content-center" *ngIf="isLoading">
+    <h1>Preparing Your Dinner...</h1>
+  </ion-row>
+  <div class="ion-text-center" *ngIf="pagLoading">
+    <br><br><br>
+    <ion-spinner color="danger"></ion-spinner>
+    <h1>Cooking More Dishes...</h1>
+  </div>
+  <ion-row *ngIf="!paginationFinished && !pagLoading && !noneAvailable && !searchUsed" class="ion-text-center">
+    <ion-col size="12" size-sm="8" offset-sm="2">
+      <ion-button *ngIf="!isLoading" size="large" color="danger" (click)="paginationNext()">Load More Recipes</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="noneAvailable"  class="ion-text-center">
+    <ion-col size="12" size-sm="8" offset-sm="2">
+      <br>
+      <h1 class="red">No Results Matching Your Search!</h1>
+      <br>
+    </ion-col>
+  </ion-row>
+</ion-content>

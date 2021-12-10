@@ -1,0 +1,151 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <ion-buttons>
+          <ion-back-button slot="start" defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col class="ion-text-center" *ngIf="!editMode">
+        <img class="logo" src="assets/logo.png" (click)="logoClicked()">
+      </ion-col>
+      <ion-col class="ion-text-end" *ngIf="!editMode">
+        <ion-icon *ngIf="!favorite" size="large" name="star-outline" mode="md" (click)="favorited()"></ion-icon>
+        <ion-icon *ngIf="favorite" size="large" name="star" mode="md" (click)="favorited()"></ion-icon>
+      </ion-col>
+      <ion-col class="ion-text-end" *ngIf="editMode">
+        <img class="logo" src="assets/logo.png" (click)="logoClicked()">
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-text-center ion-justify-content-center" size-sm="6" offset-sm="3" size-md="8" offset-md="2">
+        <!-- user reccomends this recipes -->
+        <ion-row *ngIf="reccomended" class="ion-text-center ion-justify-content-center ion-align-items-center">
+          <h6 *ngIf="recipe?.reccomendations > 0" class="reccomended paddingRight">{{recipe?.reccomendations}}</h6>
+          <h6 *ngIf="recipe?.reccomendations === 0" class="reccomended paddingRight">No Reccomendations Yet</h6>
+          <h6 *ngIf="recipe?.reccomendations > 1" class="reccomended paddingRight">Chefs Reccomend</h6>
+          <h6 *ngIf="recipe?.reccomendations === 1" class="reccomended paddingRight">Chef Reccomends</h6>
+          <ion-icon size="medium"  color="success" name="thumbs-up-outline"></ion-icon>
+        </ion-row>
+        <ion-row *ngIf="reccomended" class="ion-text-center ion-justify-content-center noTopPadding">
+          <span class="reccomendHelp">(you reccomended this!)</span>
+        </ion-row>
+        <!-- not reccomendation by user -->
+        <ion-row *ngIf="!reccomended" class="ion-text-center ion-justify-content-center ion-align-items-center">
+          <h6 *ngIf="recipe?.reccomendations > 0" class="notreccomended paddingRight">{{recipe?.reccomendations}}</h6>
+          <h6 *ngIf="recipe?.reccomendations === 0" class="notreccomended paddingRight">No Reccomendations Yet</h6>
+          <h6 *ngIf="recipe?.reccomendations > 1" class="notreccomended paddingRight">Chefs Reccomend</h6>
+          <h6 *ngIf="recipe?.reccomendations === 1" class="notreccomended paddingRight">Chef Reccomends</h6>
+          <ion-icon *ngIf="!editMode" (click)="reccomend()" size="medium" name="thumbs-up-outline"></ion-icon>
+          <ion-icon *ngIf="editMode" size="medium" name="thumbs-up-outline"></ion-icon>
+        </ion-row>
+        <ion-row *ngIf="!reccomended" class="ion-text-center ion-justify-content-center noTopPadding">
+          <span class="reccomendHelp" (click)="reccomend()" *ngIf="!editMode">(click to reccomend)</span>
+        </ion-row>
+        <br>
+        <ion-row *ngIf="editMode" class="ion-justify-content-center ion-padding-bottom">
+          <ion-button size="small" color="danger" (click)="deleteRecipe()">Delete Recipe</ion-button>
+        </ion-row>
+        <ion-row class="ion-justify-content-center ion-align-items-center ion-padding-bottom">
+          <ion-avatar (click)="goToChef()">
+            <img [src]="chefPic">
+          </ion-avatar>
+          <span class="spaced" (click)="goToChef()">{{ chefName }}</span>
+        </ion-row>
+        <ion-row class="ion-align-items-center ion-justify-content-center">
+          <h1 class="underline ion-no-margin bold">{{ recipe?.name }}</h1>
+          <ion-icon *ngIf="editMode" color="danger" size="medium paddingLeft" name="create-outline" (click)="editInfo()"></ion-icon>
+        </ion-row>
+        <ion-row class="ion-align-items-center ion-justify-content-center">
+          <ion-note *ngIf="recipe?.minutes !== null" color="danger">{{ recipe?.minutes }} min.</ion-note>
+          <ion-note *ngIf="recipe?.minutes === null && editMode" color="danger">Add Prep Time</ion-note>
+          <ion-icon *ngIf="editMode" color="danger" size="medium paddingLeft" name="create-outline" (click)="editInfo()"></ion-icon>
+        </ion-row>
+        <br>
+        <br>
+        <ion-row class="ion-justify-content-center">
+          <ion-img alt="No Recipe Picture Available" [src]="recipe?.mainPic"></ion-img>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-button size="small" *ngIf="editMode" color="success" (click)="updatePicture()">Update Picture</ion-button>
+        </ion-row>
+        <ion-row class="ion-justify-content-center ion-align-items-center ion-padding-bottom">
+          <span class="paddingRight description">Description - </span>
+          <span>{{ recipe?.description }}</span>
+          <span (click)="editInfo()" class="red" *ngIf="!recipe?.description && editMode">Add Description</span>
+          <ion-icon *ngIf="editMode" color="danger" size="medium paddingLeft" name="create-outline" (click)="editInfo()"></ion-icon>
+        </ion-row>
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <span class="description paddingRight">Categories - </span>
+          <span *ngFor="let type of recipe?.recipeType; last as last">
+            <span class="paddingRight" *ngIf="!last">{{type}},</span>
+            <span *ngIf="last">{{type}}</span>
+          </span>
+          <span *ngIf="recipe?.recipeType.length < 1 && editMode" (click)="editInfo()">
+            <span class="red">Add Categories</span>
+          </span>
+          <ion-icon *ngIf="editMode" color="danger" size="medium paddingLeft" name="create-outline" (click)="editInfo()"></ion-icon>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-text-center ion-justify-content-center" size-sm="6" offset-sm="3">
+        <ion-segment color="danger" mode="md" value="ingredients" (ionChange)="segmentChange($event)">
+          <ion-segment-button value="ingredients">
+            <ion-label>Ingredients</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="instructions">
+            <ion-label>Instructions</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="story">
+            <ion-label>Story</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <br>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngIf="chosenSegment === 'ingredients'" class="ion-text-center ion-justify-content-center" size-sm="6" offset-sm="3">
+        <ion-button size="small" *ngIf="editMode" color="success" (click)="editIngredients()">Edit Ingredients</ion-button>
+        <ion-row *ngFor="let ingredient of recipe?.ingredients; let i = index">
+          <ion-col class="ion-text-start ion-padding-start" size="2">
+            <h5>({{i + 1}})</h5>
+          </ion-col>
+          <ion-col class="ion-text-start">
+            <h4>{{ ingredient }} </h4>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col *ngIf="chosenSegment === 'instructions'" class="ion-text-center ion-justify-content-center" size-sm="6" offset-sm="3">
+        <ion-button size="small" *ngIf="editMode" color="success" (click)="editInstructions()">Edit Instructions</ion-button>
+        <ion-row *ngFor="let instruction of recipe?.instructions; let i = index">
+          <ion-col class="ion-text-start ion-padding-start ion-justify-content-between" size="2">
+            <h5>({{i + 1}})</h5>
+          </ion-col>
+          <ion-col class="ion-text-start">
+            <h4>{{ instruction }} </h4>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col *ngIf="chosenSegment === 'story'" class="ion-text-center ion-justify-content-center" size-sm="4" offset-sm="4">
+        <ion-button size="small" *ngIf="editMode" color="success" (click)="editStory()">Edit Story</ion-button>
+        <p class="formatting ion-text-start">{{ recipe?.story }}</p>
+        <br>
+        <ion-button size="small" *ngIf="editMode" color="danger" (click)="editStoryPic()">Edit Story Picture</ion-button>
+        <ion-row class="ion-justify-content-center">
+          <ion-img *ngIf="recipe?.storyPic" [src]="recipe.storyPic" alt="No Story Picture Available"></ion-img>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

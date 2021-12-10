@@ -1,0 +1,21 @@
+.image {
+  width: 350px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.picker {
+  width: 350px;
+  // max-width: 80%;
+  height: 250px;
+  // max-height: 30vh;
+  border: 1px solid var(--ion-color-danger);
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type='file'] {
+  display: none;
+}
