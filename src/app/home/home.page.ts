@@ -92,11 +92,11 @@ export class HomePage implements OnInit {
   }
 
   openKeyboard() {
-    // this.keyboard.show();
+    Keyboard.show();
   }
 
   closeKeyboard() {
-    // this.keyboard.hide();
+    Keyboard.hide();
   }
 
   clearFilter() {
