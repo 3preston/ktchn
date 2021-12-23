@@ -24,7 +24,7 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col class="ion-text-center ion-justify-content-center" size-sm="6" offset-sm="3" size-md="8" offset-md="2">
+      <ion-col class="ion-text-center ion-justify-content-center" size-sm="6" offset-sm="3">
         <!-- user reccomends this recipes -->
         <ion-row *ngIf="reccomended" class="ion-text-center ion-justify-content-center ion-align-items-center">
           <h6 *ngIf="recipe?.reccomendations > 0" class="reccomended paddingRight">{{recipe?.reccomendations}}</h6>
@@ -76,13 +76,15 @@
           <ion-button size="small" *ngIf="editMode" color="success" (click)="updatePicture()">Update Picture</ion-button>
         </ion-row>
         <br>
-        <ion-row class="ion-justify-content-center ion-align-items-center ion-padding-bottom">
-          <span class="paddingRight description">Description - </span>
-          <span>{{ recipe?.description }}</span>
-          <span (click)="editInfo()" class="red" *ngIf="!recipe?.description && editMode">Add Description</span>
-          <ion-icon *ngIf="editMode" color="danger" size="medium paddingLeft" name="create-outline" (click)="editInfo()"></ion-icon>
+        <ion-row class="ion-justify-content-start ion-align-items-center ion-padding-bottom">
+          <span class="ion-text-start">
+            <span class="paddingRight description">Description - </span>
+            <span>{{ recipe?.description }}</span>
+            <span (click)="editInfo()" class="red" *ngIf="!recipe?.description && editMode">Add Description</span>
+            <ion-icon *ngIf="editMode" color="danger" size="medium paddingLeft" name="create-outline" (click)="editInfo()"></ion-icon>
+          </span>
         </ion-row>
-        <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-row class="ion-justify-content-start ion-align-items-center">
           <span class="description paddingRight">Categories - </span>
           <span *ngFor="let type of recipe?.recipeType; last as last">
             <span class="paddingRight" *ngIf="!last">{{type}},</span>

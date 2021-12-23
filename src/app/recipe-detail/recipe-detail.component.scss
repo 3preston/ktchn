@@ -47,6 +47,10 @@ ion-img {
   white-space: pre-wrap;
 }
 
+.wrap {
+  white-space: break-spaces;
+}
+
 .reccomended {
   color: var(--ion-color-success);
 }
