@@ -80,6 +80,7 @@
   <ion-row *ngIf="segmentChosen === 'cookbooks'" class="ion-text-center">
     <ion-col size-sm="6" offset-sm="3">
       <ion-button *ngIf="editMode" color="success" (click)="createNewCookbook()">Create New Cookbook</ion-button>
+      <h3 *ngIf="userCookbooks?.length < 1">No Cookbooks Yet!</h3>
     </ion-col>
   </ion-row>
   <ion-row *ngIf="segmentChosen === 'cookbooks'">
