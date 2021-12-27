@@ -247,6 +247,7 @@ export class ProfileComponent implements OnInit {
                           this.firestore.collection('recipes').add({
                             name: basicInfo.data.recipeData.name,
                             description: basicInfo.data.recipeData.description,
+                            hours: basicInfo.data.recipeData.hours,
                             minutes: basicInfo.data.recipeData.minutes,
                             recipeType: recipeTypes,
                             mainPic: mainPicURL,

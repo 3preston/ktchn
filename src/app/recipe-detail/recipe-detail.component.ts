@@ -178,16 +178,18 @@ export class RecipeDetailComponent implements OnInit {
   editInfo() {
     this.modal.create({
       component: RecipeInfoComponent,
-      componentProps: {name: this.recipe.name, minutes: this.recipe.minutes, description: this.recipe.description, category: this.recipe.recipeType, mode: 'edit'}
+      componentProps: {name: this.recipe.name, hours: this.recipe.hours, minutes: this.recipe.minutes, description: this.recipe.description, category: this.recipe.recipeType, mode: 'edit'}
     }).then(modalEl => {
       modalEl.onDidDismiss().then(modalData => {
         this.recipe.name = modalData.data.recipeData.name;
         this.recipe.description = modalData.data.recipeData.description;
         this.recipe.minutes = modalData.data.recipeData.minutes;
+        this.recipe.hours = modalData.data.recipeData.hours;
         this.recipe.recipeType = modalData.data.recipeData.recipeType;
         this.firestore.collection('recipes').doc(this.recipeId).set({
           name: modalData.data.recipeData.name,
           description: modalData.data.recipeData.description,
+          hours: modalData.data.recipeData.hours,
           minutes: modalData.data.recipeData.minutes,
           recipeType: modalData.data.recipeData.recipeType
         }, { merge: true });

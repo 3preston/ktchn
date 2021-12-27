@@ -5,6 +5,7 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable @typescript-eslint/dot-notation */
+import { ThrowStmt } from '@angular/compiler';
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController, PickerController } from '@ionic/angular';
@@ -43,14 +44,15 @@ export class RecipeInfoComponent {
   form: FormGroup;
   @Input() name: string;
   @Input() description: string;
+  @Input() hours: string;
   @Input() minutes: string;
   @Input() mode: any;
   @Input() category: any;
   mainPic: any;
   recipeType = [];
 
-  availableHours: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21'];
-  availableMinutes: string[] = ['1', '2,', '3', '4', '5', '6', '7', '8', '9', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60'];
+  availableHours: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21'];
+  availableMinutes: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'];
   selectedHours = '';
   selectedMinutes = '';
 
@@ -67,16 +69,14 @@ export class RecipeInfoComponent {
         updateOn:'blur',
         validators: [Validators.required]
       }),
-      minutes: new FormControl(this.minutes, {
-        updateOn:'blur',
-        validators: [Validators.required]
-      }),
       recipeType: new FormControl(this.category, {
         updateOn:'blur',
         validators: [Validators.required]
       }),
       mainPic: new FormControl(null)
     });
+    this.selectedHours = this.hours;
+    this.selectedMinutes = this.minutes;
   }
 
   saveRecipe() {
@@ -84,7 +84,8 @@ export class RecipeInfoComponent {
       recipeData: {
         name: this.form.value['name'],
         description: this.form.value['description'],
-        minutes: this.form.value['minutes'],
+        hours: this.selectedHours,
+        minutes: this.selectedMinutes,
         recipeType: this.category,
         mainPic: this.mainPic
       }
@@ -126,10 +127,7 @@ export class RecipeInfoComponent {
         },
         {
           text: 'Ok',
-          handler:(value: any) => {
-            console.log(value);
-            console.log(typeof(value));
-          }
+          handler:(value: any) => {}
         }
       ],
       columns:[
@@ -155,10 +153,7 @@ export class RecipeInfoComponent {
         },
         {
           text: 'Ok',
-          handler:(value: any) => {
-            console.log(value);
-            console.log(typeof(value));
-          }
+          handler:(value: any) => {}
         }
       ],
       columns:[

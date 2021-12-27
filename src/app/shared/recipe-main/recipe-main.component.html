@@ -3,10 +3,13 @@
     <ion-card-header>
       <h3 *ngIf="mode !== 'search'"> {{ recipe?.name }} </h3>
       <ais-highlight *ngIf="mode === 'search'" class="highlight" attribute="name" [hit]="recipe"></ais-highlight>
-      <div *ngIf="+recipe?.minutes >= 1" class="success">
+      <span *ngIf="+recipe?.hours > 0" class="success">
+        {{ recipe?.hours }} hr.
+      </span>
+      <span *ngIf="+recipe?.minutes > 0" class="success">
         {{ recipe?.minutes }} min.
-      </div>
-      <br *ngIf="!recipe?.minutes">
+      </span>
+      <br *ngIf="!recipe?.hours">
     </ion-card-header>
   </ion-row>
   <ion-row class="ion-justify-content-center">
