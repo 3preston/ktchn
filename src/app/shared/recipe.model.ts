@@ -5,6 +5,7 @@ export class RecipeModel {
   public name?: string;
   public description?: string;
   public minutes?: string;
+  public hours?: string;
   public ingredients?: [];
   public instructions?: [];
   public mainPic?: any;
@@ -21,6 +22,7 @@ export class RecipeModel {
     name?: string,
     description?: string,
     minutes?: string,
+    hours?: string,
     ingredients?: [],
     instructions?: [],
     mainPic?: any,
@@ -36,6 +38,7 @@ export class RecipeModel {
       this.name = name;
       this.description = description;
       this.minutes = minutes;
+      this.hours = hours;
       this.ingredients = ingredients;
       this.instructions = instructions;
       this.mainPic = mainPic;

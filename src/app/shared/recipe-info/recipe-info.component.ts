@@ -7,7 +7,9 @@
 /* eslint-disable @typescript-eslint/dot-notation */
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { ModalController, PickerController } from '@ionic/angular';
+import { PickerOptions } from '@ionic/core';
+import { present } from '@ionic/core/dist/types/utils/overlays';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -35,6 +37,7 @@ function base64toBlob(base64Data, contentType) {
   templateUrl: './recipe-info.component.html',
   styleUrls: ['./recipe-info.component.scss'],
 })
+
 export class RecipeInfoComponent {
 
   form: FormGroup;
@@ -46,7 +49,13 @@ export class RecipeInfoComponent {
   mainPic: any;
   recipeType = [];
 
-  constructor(private modal: ModalController) { }
+  availableHours: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21'];
+  availableMinutes: string[] = ['1', '2,', '3', '4', '5', '6', '7', '8', '9', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60'];
+  selectedHours = '';
+  selectedMinutes = '';
+
+  constructor(private modal: ModalController,
+              private picker: PickerController) { }
 
   ionViewWillEnter() {
     this.form = new FormGroup({
@@ -106,6 +115,80 @@ export class RecipeInfoComponent {
 
   typeChosen(event: any) {
     this.category = event.detail.value;
+  }
+
+  async selectHours() {
+    let pickerOptions: PickerOptions = {
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Ok',
+          handler:(value: any) => {
+            console.log(value);
+            console.log(typeof(value));
+          }
+        }
+      ],
+      columns:[
+        {
+          name:'Hours',
+          options : this.getHoursOptions()
+        }
+      ]
+    };
+    const picker = await this.picker.create(pickerOptions);
+    picker.present();
+    picker.onDidDismiss().then(data => {
+      this.selectedHours = data.data.Hours.text;
+    });
+  }
+
+  async selectMinutes() {
+    let pickerOptions: PickerOptions = {
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Ok',
+          handler:(value: any) => {
+            console.log(value);
+            console.log(typeof(value));
+          }
+        }
+      ],
+      columns:[
+        {
+          name:'Minutes',
+          options : this.getMinutesOptions()
+        }
+      ]
+    };
+    const picker = await this.picker.create(pickerOptions);
+    picker.present();
+    picker.onDidDismiss().then(data => {
+      this.selectedMinutes = data.data.Minutes.text;
+    });
+  }
+
+  getHoursOptions() {
+    let options = [];
+    this.availableHours.forEach(x => {
+      options.push({text:x, value:x});
+    });
+    return options;
+  }
+
+  getMinutesOptions() {
+    let options = [];
+    this.availableMinutes.forEach(x => {
+      options.push({text:x, value:x});
+    });
+    return options;
   }
 
 }

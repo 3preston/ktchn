@@ -90,22 +90,31 @@
       </ion-select>
     </ion-item>
     <ion-row class="ion-justify-content-center">
-      <h3 class="underline">Prep & Cook Time:</h3>
+      <h3 class="underline">Prep Time:</h3>
     </ion-row>
-    <ion-row class="ion-justify-content-center">
-      <h6 color="dark" position="stacked">(total minutes)</h6>
-    </ion-row>
-    <ion-row class="ion-text-center ion-justify-content-center">
-      <ion-col size="4">
-        <ion-input
-          type="number"
-          maxlength="5"
-          formControlName="minutes"
-          placeholder="e.g. 75"
-          inputmode="numeric"
-        ></ion-input>
+    <ion-row class="ion-justify-content-center ion-text-center">
+      <ion-col size="4" class="ion-text-center">
+        <ion-row class='ion-text-center ion-justify-content-center'>
+          <span class="time">Hours:</span>
+        </ion-row>
+        <br>
+        <ion-button *ngIf="!selectedHours" color="success" (click)="selectHours()">Select</ion-button>
+        <ion-row class='ion-text-center ion-justify-content-center'>
+          <span class="time" *ngIf="selectHours" (click)="selectHours()">{{selectedHours}}</span>
+        </ion-row>
       </ion-col>
-      <br>
+      <ion-col size="4" class="ion-text-center">
+        <ion-row class='ion-text-center ion-justify-content-center'>
+          <span class="time">Minutes:</span>
+        </ion-row>
+        <br>
+        <ion-button *ngIf="!selectedMinutes" color="success" (click)="selectMinutes()">Select</ion-button>
+        <ion-row class='ion-text-center ion-justify-content-center'>
+          <span class="time" *ngIf="selectedMinutes" (click)="selectHours()">{{selectedMinutes}}</span>
+        </ion-row>
+      </ion-col>
     </ion-row>
+    <br>
+    <br>
   </form>
 </ion-content>
