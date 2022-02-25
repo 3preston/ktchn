@@ -65,7 +65,7 @@
         <ion-row class="ion-align-items-center ion-justify-content-center">
           <ion-note class="paddingRight" *ngIf="recipe?.hours > '0'" color="danger">{{ recipe?.hours }} hr.</ion-note>
           <ion-note *ngIf="recipe?.minutes > '0'" color="danger">{{ recipe?.minutes }} min.</ion-note>
-          <ion-note *ngIf="recipe?.minutes === null && editMode && recipe?.hours === null" color="danger">Add Prep Time</ion-note>
+          <ion-note *ngIf="recipe?.minutes == 0 && editMode && recipe?.hours == 0" color="danger">Add Prep Time</ion-note>
           <ion-icon *ngIf="editMode" color="danger" size="medium paddingLeft" name="create-outline" (click)="editInfo()"></ion-icon>
         </ion-row>
         <br>
