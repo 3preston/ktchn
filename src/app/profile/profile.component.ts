@@ -206,6 +206,8 @@ export class ProfileComponent implements OnInit {
   createNewRecipe() {
     this.modal.create({component: RecipeInfoComponent, backdropDismiss: false}).then(modalEl => {
       modalEl.onDidDismiss().then(basicInfo => {
+        // console.log(basicInfo.data.recipeData);
+        // console.log(basicInfo.data);
         if (basicInfo.data == undefined) {
           return;
         }
@@ -244,6 +246,14 @@ export class ProfileComponent implements OnInit {
                           }
 
                           //write to firestore
+                          console.log(basicInfo.data.recipeData);
+                          if (basicInfo.data.recipeData.hours == undefined) {
+                            basicInfo.data.recipeData.hours = '0'
+                          }
+                          if (basicInfo.data.recipeData.minutes == undefined) {
+                            basicInfo.data.recipeData.minutes = '0'
+                          }
+                          console.log(basicInfo.data.recipeData);
                           this.firestore.collection('recipes').add({
                             name: basicInfo.data.recipeData.name,
                             description: basicInfo.data.recipeData.description,
